@@ -1,6 +1,6 @@
 export type HttpPostParams = {
   url: string
-  body?: any
+  body?: object
   headers?: any
 }
 

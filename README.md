@@ -1,7 +1,7 @@
 # (Very) Clean React App
 
 This reactjs app is a result of a great course provided by Rodrigo Manguinho
-(@rmanguinho)[https://github.com/rmanguinho]
+[@rmanguinho](https://github.com/rmanguinho)
 
 
 Main topics covered in this course

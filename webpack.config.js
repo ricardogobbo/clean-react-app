@@ -15,6 +15,32 @@ module.exports = {
       '@': path.join(__dirname, 'src'),
     },
   },
+  module: {
+    rules: [
+      {
+        test: /\.tx(x?)$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+    ],
+  },
   devServer: {
     contentBase: './public',
     writeToDisk: true,
@@ -24,7 +50,5 @@ module.exports = {
     react: 'React',
     'react-dom': 'ReactDOM',
   },
-  plugins : [
-    new CleanWebpackPlugin()
-  ]
+  plugins: [new CleanWebpackPlugin()],
 }

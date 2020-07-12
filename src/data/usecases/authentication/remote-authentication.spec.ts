@@ -1,11 +1,16 @@
+import { UnexpectedError } from '@/domain/errors/unexpected-error'
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error'
+
+import { RemoteAuthentication } from './remote-authentication'
+import { HttpStatusCode } from '@/data/protocols/http/http-response'
+
 import {
   HttpPostClientSpy,
-  mockResponseUnauthorized,
+  mockResponseWithStatusCode,
 } from '@/data/test/mock-http-client'
-import { RemoteAuthentication } from './remote-authentication'
-import faker from 'faker'
 import { mockAuthentication } from '@/domain/test/mock-authentication'
+
+import faker from 'faker'
 
 type SutTypes = {
   sut: RemoteAuthentication
@@ -39,9 +44,36 @@ describe('RemoteAuthentication', () => {
   test('Should throw InvalidCredentialsError if HttpPostClient return 401', async () => {
     const { sut, httpPostClient } = makeSut()
     const authParams = mockAuthentication()
-    const response = mockResponseUnauthorized()
+    const response = mockResponseWithStatusCode(HttpStatusCode.unauthorized)
     httpPostClient.response = response
     const promise = sut.auth(authParams)
     await expect(promise).rejects.toThrow(new InvalidCredentialsError())
+  })
+
+  test('Should throw UnexpectedError if HttpPostClient return 400', async () => {
+    const { sut, httpPostClient } = makeSut()
+    const authParams = mockAuthentication()
+    const response = mockResponseWithStatusCode(HttpStatusCode.badRequest)
+    httpPostClient.response = response
+    const promise = sut.auth(authParams)
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+
+  test('Should throw UnexpectedError if HttpPostClient return 404', async () => {
+    const { sut, httpPostClient } = makeSut()
+    const authParams = mockAuthentication()
+    const response = mockResponseWithStatusCode(HttpStatusCode.notFound)
+    httpPostClient.response = response
+    const promise = sut.auth(authParams)
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+
+  test('Should throw UnexpectedError if HttpPostClient return 500', async () => {
+    const { sut, httpPostClient } = makeSut()
+    const authParams = mockAuthentication()
+    const response = mockResponseWithStatusCode(HttpStatusCode.serverError)
+    httpPostClient.response = response
+    const promise = sut.auth(authParams)
+    await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 })

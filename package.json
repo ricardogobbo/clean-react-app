@@ -2,7 +2,7 @@
   "name": "clean-react",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Ricardo Gobbo <rg.aguas@gmail.com>",
+  "author": "Ricardo Gobbo <r*****s@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test": "jest --passWithNoTests",

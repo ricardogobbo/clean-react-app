@@ -7,10 +7,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public/js'),
     publicPath: '/public/js',
-    filename: 'index.js',
+    filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', 'scss'],
     alias: {
       '@': path.join(__dirname, 'src'),
     },
@@ -18,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tx(x?)$/,
+        test: /\.ts(x?)$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
